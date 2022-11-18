@@ -41,6 +41,44 @@ public class TutorialDetailsController {
 
             return new ResponseEntity<>(details, HttpStatus.CREATED);
         }
+    }
+
+    @GetMapping({"/details/{id}", "/tutorials/{id}/details"})
+    public ResponseEntity<TutorialDetails> getDetailsById(@PathVariable(value = "id") long id) {
+        TutorialDetails details = tutorialDetailService.getDetailsById(id);
+
+        if(details == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(details, HttpStatus.OK);
+    }
+
+    @PutMapping("/details/{id}")
+    public ResponseEntity<TutorialDetails> updateDetails(@PathVariable(value = "id") long id, @RequestBody TutorialDetails detailsRequest) {
+        // check if details exist
+        TutorialDetails details = tutorialDetailService.getDetailsById(id);
+
+        if(details == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        details.setCreatedBy(detailsRequest.getCreatedBy());
+
+        return new ResponseEntity<>(tutorialDetailService.saveTutorialDetails(details), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/details/{id}")
+    public ResponseEntity<HttpStatus> deleteDetails(@PathVariable(value = "id") long id) {
+        try {
+            // delete detail
+            tutorialDetailService.deleteDetailsById(id);
+
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
     }
+
 }

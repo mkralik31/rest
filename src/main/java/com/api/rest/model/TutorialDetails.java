@@ -21,8 +21,8 @@ public class TutorialDetails {
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
-//    @JoinColumn(name = "tutorial_id")
-    @JsonIgnoreProperties
+    @JoinColumn(name = "tutorial_id")
+//    @JsonIgnoreProperties
     private Tutorial tutorial;
 
     public TutorialDetails() {
