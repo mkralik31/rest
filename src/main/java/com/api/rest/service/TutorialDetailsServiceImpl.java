@@ -32,4 +32,9 @@ public class TutorialDetailsServiceImpl implements TutorialDetailService {
     public void deleteDetailsById(long id) {
         detailsRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteByTutorialId(long tutorialId) {
+        detailsRepository.deleteByTutorialId(tutorialId);
+    }
 }

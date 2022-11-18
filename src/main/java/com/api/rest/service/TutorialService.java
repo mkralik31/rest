@@ -22,4 +22,6 @@ public interface TutorialService {
 
     void deleteAllTutorials();
 
+    boolean existsTutorialById(long tutorialId);
+
 }

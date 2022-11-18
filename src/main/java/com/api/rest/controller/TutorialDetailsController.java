@@ -81,4 +81,16 @@ public class TutorialDetailsController {
 
     }
 
+    @DeleteMapping("/tutorial/{tutorialId}/details")
+    public ResponseEntity<TutorialDetails> deleteDetailsOfTutorial(@PathVariable("tutorialId") long tutorialId) {
+        if(!tutorialService.existsTutorialById(tutorialId)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        // delete details by tutorial
+        tutorialDetailService.deleteByTutorialId(tutorialId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

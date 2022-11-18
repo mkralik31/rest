@@ -8,4 +8,8 @@ public interface TutorialDetailService {
     TutorialDetails getDetailsById(long id);
 
     void deleteDetailsById(long id);
+
+    void deleteByTutorialId(long tutorialId);
+
+
 }

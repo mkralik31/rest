@@ -68,4 +68,10 @@ public class TutorialServiceImpl implements TutorialService {
     public void deleteAllTutorials() {
         tutorialRepository.deleteAll();
     }
+
+    @Override
+    public boolean existsTutorialById(long tutorialId) {
+        tutorialRepository.existsById(tutorialId);
+        return true;
+    }
 }

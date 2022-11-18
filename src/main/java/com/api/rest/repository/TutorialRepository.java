@@ -11,7 +11,7 @@ public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
     List<Tutorial> findByPublished(boolean published);  // returns all tutorials with published value as input
     List<Tutorial> findByTitleContaining(String title); // returns all tutorials which title contains input title //SELECT * FROM EMP WHERE name LIKE '%J%';
 
-    Tutorial deleteTutorialById(long id);
+    void deleteTutorialById(long id);
 
 
 }
