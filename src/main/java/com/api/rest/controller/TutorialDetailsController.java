@@ -56,16 +56,15 @@ public class TutorialDetailsController {
 
     @PutMapping("/details/{id}")
     public ResponseEntity<TutorialDetails> updateDetails(@PathVariable(value = "id") long id, @RequestBody TutorialDetails detailsRequest) {
-        // check if details exist
+
         TutorialDetails details = tutorialDetailService.getDetailsById(id);
 
         if(details == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            details.setCreatedBy(detailsRequest.getCreatedBy());
+            return new ResponseEntity<>(tutorialDetailService.saveTutorialDetails(details), HttpStatus.OK);
         }
-
-        details.setCreatedBy(detailsRequest.getCreatedBy());
-
-        return new ResponseEntity<>(tutorialDetailService.saveTutorialDetails(details), HttpStatus.OK);
     }
 
     @DeleteMapping("/details/{id}")
