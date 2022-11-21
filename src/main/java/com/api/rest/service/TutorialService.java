@@ -24,4 +24,5 @@ public interface TutorialService {
 
     boolean existsTutorialById(long tutorialId);
 
+    List<Tutorial> getTutorialsByTagsId(long tagId);
 }

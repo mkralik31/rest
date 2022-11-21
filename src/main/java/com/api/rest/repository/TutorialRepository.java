@@ -13,6 +13,7 @@ public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
 
     void deleteTutorialById(long id);
 
+    List<Tutorial> findTutorialsByTagsId(long tagId); // returns all tutorials related to tag
 
 }
 

@@ -74,4 +74,9 @@ public class TutorialServiceImpl implements TutorialService {
         tutorialRepository.existsById(tutorialId);
         return true;
     }
+
+    @Override
+    public List<Tutorial> getTutorialsByTagsId(long tagId) {
+        return tutorialRepository.findTutorialsByTagsId(tagId);
+    }
 }

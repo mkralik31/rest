@@ -3,6 +3,8 @@ package com.api.rest.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tutorials")
@@ -22,6 +24,13 @@ public class Tutorial {
 
     @Column(name = "published")
     private boolean published;
+
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "tutorials_tags",
+            joinColumns = {@JoinColumn(name = "tutorial_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")})
+    private List<Tag> tags = new ArrayList<Tag>();
 
     public Tutorial() {
     }
@@ -64,8 +73,26 @@ public class Tutorial {
         this.published = published;
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+        tag.getTutorials().add(this);
+    }
+
+    public void removeTag(Tag tag) {
+        this.tags.remove(tag);
+        tag.getTutorials().remove(this);
+    }
+
     @Override
     public String toString() {
-        return "Tutorial {" + "id=" + id + ", title='" + title + "', description='" + description + "', is published='" + published + "'.";
+        return "Tutorial{" + "id=" + id + ", title='" + title + '\'' + ", description='" + description + '\'' + ", published=" + published + ", tags=" + tags + '}';
     }
 }
